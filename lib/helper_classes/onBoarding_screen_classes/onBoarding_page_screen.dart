@@ -53,7 +53,7 @@ class OnBoardingPage extends StatelessWidget {
           SizedBox(
             child: isButton
                 ? ShareButton().shareButton(
-                    onPress: () {Get.to(() => EditInvoice(businessname: "", businessemail: ""));},
+                    onPress: () {Get.offAll(() => EditInvoice(businessname: "", businessemail: ""));},
                     text: "Get Started ",
                     buttonColor: appColor,
                     textColor: textColor,

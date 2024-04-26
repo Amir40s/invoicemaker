@@ -20,11 +20,10 @@ class PreviewInvoiceScreen extends StatelessWidget {
       {super.key,this.clientName,this.clientEmail,this.clientAddress,this.clientMobile,
       this.companyName,this.companyAddress,this.companyEmail,this.companyContact,
       required this.itemList,required this.priceList,required this.quantityList,
-      required this.perItemTotalList,this.signatureBytes,this.total,required this.isShow});
+      required this.perItemTotalList,this.signatureBytes,this.total,});
   final List itemList,priceList,quantityList,perItemTotalList;
   dynamic clientName,clientEmail,clientAddress,clientMobile,companyName,companyAddress,
       companyEmail,total,companyContact;
-  bool isShow;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +57,12 @@ class PreviewInvoiceScreen extends StatelessWidget {
     final locationImage = pw.MemoryImage((await rootBundle.load(ImagesPath.LOCATIONICON)).buffer.asUint8List());
     final phoneImage = pw.MemoryImage((await rootBundle.load(ImagesPath.PHONEICONPDF)).buffer.asUint8List());
     final emailImage = pw.MemoryImage((await rootBundle.load(ImagesPath.MAILICON)).buffer.asUint8List());
-    final imageFile = Provider.of<MyImageProvider>(context,listen: false).image;
-    final image = File(imageFile!.path.toString());
-    final companyLogo = pw.MemoryImage(image.readAsBytesSync());
+    final imageFile = Provider.of<MyImageProvider>(context,listen: false);
+    var companyLogo;
+    if (imageFile.imagepath != imageFile.blankImage && imageFile.imagepath.isNotEmpty) {
+      var image = File(imageFile.imagepath);
+      companyLogo = pw.MemoryImage(image.readAsBytesSync());
+    }
     int randomNumber = generateUniqueCode();
     DateTime currentDate = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy').format(currentDate);
@@ -73,12 +75,12 @@ class PreviewInvoiceScreen extends StatelessWidget {
     child: pw.Column(children: [
       pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
         pw.Row(children: [
-          pw.Container(
+          imageFile.imagepath != imageFile.blankImage ? pw.Container(
                 decoration: const pw.BoxDecoration(color: PdfColors.green,shape: pw.BoxShape.circle),
                 height: 40.0,width: 40.0,
                 child: pw.Center(child: pw.ClipOval(
-                  child: pw.Image(companyLogo,fit: pw.BoxFit.cover),
-                ),)) ,
+                  child: pw.Image( companyLogo,fit: pw.BoxFit.cover),
+                ),)) : pw.SizedBox(),
           pw.SizedBox(width: 10.0),
           pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.start,
@@ -86,10 +88,17 @@ class PreviewInvoiceScreen extends StatelessWidget {
               children: [
                 multiText(
                         text2:
-                        isShow == true ? companyName : "",
+                        // isShow == true ?
+                        companyName
+                            // : ""
+                  ,
                 ),
                 multiText(
-                  text2: isShow == true ?companyAddress: "",
+                  text2:
+                  // isShow == true ?
+                  companyAddress
+                  // : ""
+                  ,
                 ),
               ]),
         ]),
@@ -275,35 +284,38 @@ class PreviewInvoiceScreen extends StatelessWidget {
         child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-             pw.SizedBox(child: companyContact != "" ?  pw.Row(children: [
+             pw.SizedBox(child: companyContact != "" ?
+             pw.Row(children: [
                pw.Image(phoneImage,height: 20.0,width: 20.0),
                pw.SizedBox(width: 20.0),
                multiText(
                  // text1: "Contact: ",
                    text2: companyContact),
-             ]): null),
+             ])
+                 : null)
+              ,
               pw.SizedBox(height: 10.0),
-              pw.SizedBox(
-                child: companyEmail != ""
-                    ? pw.Row(
+              pw.SizedBox(child: companyEmail != "" ?
+                pw.Row(
                   children: [
                     pw.Image(emailImage, height: 20.0, width: 20.0),
                     pw.SizedBox(width: 20.0),
                     multiText(text2: companyEmail),
                   ],
-                ) : null,
-              ),
+                )
+                    : null,)
+              ,
               pw.SizedBox(height: 10.0),
-              pw.SizedBox(
-                child: companyAddress != ""
-                    ? pw.Row(
+              pw.SizedBox(child: companyAddress != ""?
+              pw.Row(
                   children: [
                     pw.Image(locationImage, height: 20.0, width: 20.0),
                     pw.SizedBox(width: 20.0),
                     multiText(text2: companyAddress),
                   ],
-                ) : null,
-              ),
+                )
+                  : null,)
+              ,
             ]
         ),);
 
@@ -383,7 +395,7 @@ class PreviewInvoiceScreen extends StatelessWidget {
 
   pw.RichText multiText({
     // required String text1,
-    required String text2}) {
+    var text2}) {
     return pw.RichText(
       text: pw.TextSpan(children: [
         // pw.TextSpan(text: text1,style:pw.TextStyle(color: const PdfColor.fromInt(0xff0060FF),fontWeight: pw.FontWeight.bold, fontSize: 14.0)),

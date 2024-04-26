@@ -182,7 +182,7 @@ class AddItemLine {
                                       quantityList:Provider.of<AddItemProvider>(context,listen: false).quantity,
                                       perItemTotalList:Provider.of<AddItemProvider>(context,listen: false).perItemTotalAmount,
                                       signatureBytes:Provider.of<SignatureProvider>(context,listen: false).signatureBytes,
-                                  total: Provider.of<AddItemProvider>(context,listen: false).calculateTotal(), isShow: true,
+                                  total: Provider.of<AddItemProvider>(context,listen: false).calculateTotal(),
                                     ));
                               },
                               text: "SAVE AND NEXT",

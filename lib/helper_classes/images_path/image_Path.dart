@@ -20,4 +20,5 @@ class ImagesPath {
   static String MAILICON = "assets/images/pdf_mail_icon.webp";
   static String PHONEICONPDF = "assets/images/pdf_phone_icon.webp";
   static String LOCATIONICON = "assets/images/pdf_location_icon.webp";
+  static String BLANKIMAGE = "assets/images/blank_image.webp";
 }

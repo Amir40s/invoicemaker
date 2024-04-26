@@ -91,7 +91,6 @@ class AddNewItem extends StatelessWidget {
                         ).toString(),
                       );}
                       Get.back();
-                      //submitForm(context);
                     },
                     text: "Save",
                     textColor: appColor,
@@ -169,33 +168,3 @@ class AddNewItem extends StatelessWidget {
     );
   }
 }
-
-
-// final _formKey = GlobalKey<FormState>();
-//
-// void submitForm(BuildContext context) {
-//   if (_formKey.currentState!.validate()) {
-//     _formKey.currentState!.save();
-//
-//     final addItemProvider = Provider.of<AddItemProvider>(context, listen: false);
-//     addItemProvider.addItem(
-//       itemListController.itemController.text.toString(),
-//       itemListController.descriptionController.text.toString(),
-//       itemListController.unitPriceController.text.toString(),
-//       itemListController.unitController.text.toString(),
-//       itemListController.quantityController.text.toString(),
-//       itemListController.categoryController.text.toString(),
-//     );
-//     Get.back();
-//   }
-// }
-
-
-// print(addItemProvider.items);
-// print(addItemProvider.description);
-// print(addItemProvider.unitPrice);
-// print(addItemProvider.unit);
-// print(addItemProvider.category);
-// print(addItemProvider.quantity);
-// print(addItemProvider.perItemTotalAmount);
-// // print(addItemProvider.total);

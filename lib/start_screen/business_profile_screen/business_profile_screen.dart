@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:invoicemaker/start_screen/signIn_screen/signIn_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../button_classes/share_button/share_button.dart';
 import '../../constants/color_class.dart';
 import '../../helper_classes/cardItems_details/cardItem_details.dart';
@@ -92,13 +93,9 @@ class BusinessProfileScreen extends StatelessWidget {
                                       builder: (context, imageProvider, child) {
                                         return GestureDetector(
                                           onTap: () {
-                                            if (imageProvider.image == null) {
-                                              imageProvider.getImage();
-                                            } else {
-                                              imageProvider.getImage();
-                                            }
+                                            imageProvider.pickImage();
                                           },
-                                          child: imageProvider.image == null
+                                          child: imageProvider.imagepath == imageProvider.blankImage
                                               ? Padding(
                                                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                                                 child: LogoContainer().logoContainer(),
@@ -106,7 +103,7 @@ class BusinessProfileScreen extends StatelessWidget {
                                               : CircleAvatar(
                                             radius: 30.0,
                                             backgroundColor: textColor,
-                                            backgroundImage: FileImage(imageProvider.image!),
+                                            backgroundImage: FileImage(File(imageProvider.imagepath.toString())),
                                           ),
                                         );
                                       },
@@ -359,20 +356,6 @@ class BusinessProfileScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(30),
                               );
                             }),
-                            // Consumer<GetValueProvider>(
-                            //     builder: (context, getValueProvider, child) {
-                            //   return ShareButton().shareButton(
-                            //     onPress: () {},
-                            //     text: "Upload",
-                            //     buttonColor: bgColor,
-                            //     textColor: appColor,
-                            //     fontSize: 11.0,
-                            //     fontWeight: FontWeight.bold,
-                            //     width: 100,
-                            //     height: 40.0,
-                            //     borderRadius: BorderRadius.circular(30),
-                            //   );
-                            // }),
                           ],
                         ),
                         const SizedBox(
@@ -427,11 +410,5 @@ class BusinessProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-  void sharePressed(){
-    Share.share('Check out this awesome text!');
-  }
-
-
 }
 
