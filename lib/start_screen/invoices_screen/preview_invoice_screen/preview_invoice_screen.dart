@@ -1,0 +1,394 @@
+import 'dart:io';
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:invoicemaker/button_classes/share_button/share_button.dart';
+import 'package:invoicemaker/helper_classes/images_path/image_Path.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/pdf.dart';
+import 'package:provider/provider.dart';
+import '../../../constants/color_class.dart';
+import '../../../helper_classes/custom_appBar_container/custom_appBar.dart';
+import '../../../helper_classes/preview_invoice_pdf_container/preview_invoice_pdf_container.dart';
+import '../../../providers/logo_image_provider/logo_image_provider.dart';
+
+class PreviewInvoiceScreen extends StatelessWidget {
+  final Uint8List? signatureBytes;
+  PreviewInvoiceScreen(
+      {super.key,this.clientName,this.clientEmail,this.clientAddress,this.clientMobile,
+      this.companyName,this.companyAddress,this.companyEmail,this.companyContact,
+      required this.itemList,required this.priceList,required this.quantityList,
+      required this.perItemTotalList,this.signatureBytes,this.total,required this.isShow});
+  final List itemList,priceList,quantityList,perItemTotalList;
+  dynamic clientName,clientEmail,clientAddress,clientMobile,companyName,companyAddress,
+      companyEmail,total,companyContact;
+  bool isShow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar().customAppBar(
+          titleColor: textColor,
+          backgroundColor: appColor,
+          text: "Invoice Preview",
+          leadingIconColor: textColor,
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+          ),
+          onPress1: () {Get.back();},
+          onPress2: () {},
+          onPress3: () {}, useLeadingIcon: true, useActionIcon1: false,useActionIcon2: false),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: ShareButton().shareButton(onPress: (){generatePDF(context);}, text: "Your PDF ready to View", buttonColor: appColor, textColor: textColor, fontSize: 14.0,borderRadius: BorderRadius.circular(15.0),height: 50.0,fontWeight: FontWeight.bold),),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> generatePDF(BuildContext context) async {
+    final pdf = pw.Document();
+    final locationImage = pw.MemoryImage((await rootBundle.load(ImagesPath.LOCATIONICON)).buffer.asUint8List());
+    final phoneImage = pw.MemoryImage((await rootBundle.load(ImagesPath.PHONEICONPDF)).buffer.asUint8List());
+    final emailImage = pw.MemoryImage((await rootBundle.load(ImagesPath.MAILICON)).buffer.asUint8List());
+    final imageFile = Provider.of<MyImageProvider>(context,listen: false).image;
+    final image = File(imageFile!.path.toString());
+    final companyLogo = pw.MemoryImage(image.readAsBytesSync());
+    int randomNumber = generateUniqueCode();
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy').format(currentDate);
+
+    List<pw.Widget> widgets = [];
+
+    ///////// PDF Header/////
+
+    final header = pw.Padding(padding: const pw.EdgeInsets.only(left: 50.0,right: 50.0, top: 60.0),
+    child: pw.Column(children: [
+      pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
+        pw.Row(children: [
+          pw.Container(
+                decoration: const pw.BoxDecoration(color: PdfColors.green,shape: pw.BoxShape.circle),
+                height: 40.0,width: 40.0,
+                child: pw.Center(child: pw.ClipOval(
+                  child: pw.Image(companyLogo,fit: pw.BoxFit.cover),
+                ),)) ,
+          pw.SizedBox(width: 10.0),
+          pw.Column(
+              mainAxisAlignment: pw.MainAxisAlignment.start,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                multiText(
+                        text2:
+                        isShow == true ? companyName : "",
+                ),
+                multiText(
+                  text2: isShow == true ?companyAddress: "",
+                ),
+              ]),
+        ]),
+        pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            crossAxisAlignment: pw.CrossAxisAlignment.end,
+            children: [
+              pw.Text("INVOICE",
+                  style: pw.TextStyle(
+                      fontSize: 30.0, fontWeight: pw.FontWeight.bold,color: const PdfColor.fromInt(0xff0A8ED9))),
+              pw.SizedBox(height: 3.0),
+              pw.Text("Number:#INV$randomNumber",
+                  style: const pw.TextStyle(fontSize: 12.0)),
+              pw.Text("Date: $formattedDate",
+                  style: const pw.TextStyle(fontSize: 12.0)),
+            ]),
+      ]),
+      pw.SizedBox(height: 5.0),
+    ]), );
+
+
+    ////// Bill Detail //////
+
+    final billDetails = pw.Padding(padding: const pw.EdgeInsets.symmetric(horizontal: 50.0),
+    child: pw.Column(
+        mainAxisAlignment: pw.MainAxisAlignment.start,
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Text("BILL TO",
+              style:  const pw.TextStyle(
+                color:  PdfColors.black,
+                fontSize: 12.0,
+                // fontWeight: pw.FontWeight.bold,
+              )),
+          pw.Text(clientName,
+              style:
+              pw.TextStyle(fontSize: 12.0, fontWeight: pw.FontWeight.bold,color: PdfColors.black)),
+          pw.Text(clientEmail,
+              style: const pw.TextStyle(
+                fontSize: 12.0,
+              )),
+          pw.SizedBox(height: 20.0),
+          pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(clientAddress,
+                    style: const pw.TextStyle(
+                      fontSize: 12.0,
+                    )),
+                pw.Text(clientMobile,
+                    style: const pw.TextStyle(
+                      fontSize: 12.0,
+                    )),])
+        ]),);
+
+    /////// Item Header ////////
+
+    final itemHeader = pw.Column(children: [
+      pw.SizedBox(height: 20.0),
+      pw.Table(
+          columnWidths: {
+        0: const pw.FixedColumnWidth(1),
+        1: const pw.FixedColumnWidth(3),
+        2: const pw.FixedColumnWidth(2),
+        3: const pw.FixedColumnWidth(2),
+        4: const pw.FixedColumnWidth(2),
+      }, children: [
+        pw.TableRow(
+            decoration: const pw.BoxDecoration(color: PdfColor.fromInt(0xff0A8ED9),),
+            children: [
+              pw.Center(
+                 child: pw.Container(
+                   margin: const pw.EdgeInsets.only(left: 40.0,top: 5.0,bottom: 5.0),
+                   child: pw.Text("No", style: const pw.TextStyle(color: PdfColors.white)),
+    ),
+              ),
+              pw.Center(
+                child: pw.Container(
+                  margin: const pw.EdgeInsets.symmetric(horizontal: 0.0,vertical: 5.0), // Add margin around the cell
+                  child: pw.Text("Item Details", style: const pw.TextStyle(color: PdfColors.white)),
+                ),
+              ),
+              pw.Center(
+                child: pw.Container(
+                  margin: const pw.EdgeInsets.symmetric(horizontal: 0.0,vertical: 5.0), // Add margin around the cell
+                  child: pw.Text("Price", style: const pw.TextStyle(color: PdfColors.white)),
+                ),
+              ),
+              pw.Center(
+                child: pw.Container(
+                  margin: const pw.EdgeInsets.symmetric(horizontal: 0.0,vertical: 5.0), // Add margin around the cell
+                  child: pw.Text("Quantity", style: const pw.TextStyle(color: PdfColors.white)),
+                ),
+              ),
+              pw.Center(
+                child: pw.Container(
+                  margin: const pw.EdgeInsets.only(right: 10.0,top: 5.0,bottom: 5.0), // Add margin around the cell
+                  child: pw.Text("Total", style: const pw.TextStyle(color: PdfColors.white)),
+                ),
+              ),
+            ])
+      ]),
+      pw.SizedBox(height: 2.0),
+    ]);
+
+    ///// Item Prices //////
+
+    final itemsPrice = pw.Padding(padding: const pw.EdgeInsets.symmetric(horizontal: 50.0,vertical: 30.0),
+        child:  pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+          pw.Column(mainAxisAlignment: pw.MainAxisAlignment.start,
+              children: [
+            if (signatureBytes != null)
+              pw.Container(
+                width: 100.0,
+                height: 50.0,
+                child: pw.Image(
+                  pw.MemoryImage(
+                      signatureBytes!),
+                  fit: pw.BoxFit.contain,
+                ),
+              ),
+            pw.Container(
+              width: 100.0,
+              child: pw.Divider(thickness: 1.0, color: PdfColors.grey700),
+            ),
+            pw.Text(
+              "Signature",
+              style: pw.TextStyle(fontWeight: pw.FontWeight.bold, fontSize: 12.0),
+            ),
+          ]),
+          pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
+            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end,
+                  children: [
+              pw.Text("Subtotal",
+                  style: const pw.TextStyle(
+                    fontSize: 12.0,
+                  )),
+              pw.SizedBox(width: 7.0),
+              pw.Text(": Rs/- $total",
+                  style: const pw.TextStyle(
+                    fontSize: 12.0,
+                  )),
+            ]),
+            pw.SizedBox(height: 10.0),
+            pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.end,
+                children: [
+                  pw.Container(
+                    height: 23.0,
+                    width: 150.0,
+                    decoration: const pw.BoxDecoration(
+                      color:  PdfColor.fromInt(0xff0A8ED9),
+                    ),
+                    child:  pw.Center(child:
+                        pw.Padding(padding: const pw.EdgeInsets.only(right: 2.0),
+                            child:   pw.Row(
+                                crossAxisAlignment: pw.CrossAxisAlignment.end,
+                                mainAxisAlignment:pw.MainAxisAlignment.end,
+                                children: [
+                                  pw.Text("Total",
+                                      style: const pw.TextStyle(
+                                        color: PdfColors.white,
+                                        fontSize: 12.0,
+                                      )),
+                                  pw.SizedBox(width: 7.0),
+                                  pw.Text(": Rs/- $total",
+                                      style: const pw.TextStyle(
+                                        color: PdfColors.white,
+                                        fontSize: 12.0,
+                                      )),
+                                ]),),
+                    ),
+                  )
+                ]),
+          ])
+        ]),);
+
+
+    final companyDetails = pw.Padding(padding: const pw.EdgeInsets.symmetric(horizontal: 50.0),
+        child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+             pw.SizedBox(child: companyContact != "" ?  pw.Row(children: [
+               pw.Image(phoneImage,height: 20.0,width: 20.0),
+               pw.SizedBox(width: 20.0),
+               multiText(
+                 // text1: "Contact: ",
+                   text2: companyContact),
+             ]): null),
+              pw.SizedBox(height: 10.0),
+              pw.SizedBox(
+                child: companyEmail != ""
+                    ? pw.Row(
+                  children: [
+                    pw.Image(emailImage, height: 20.0, width: 20.0),
+                    pw.SizedBox(width: 20.0),
+                    multiText(text2: companyEmail),
+                  ],
+                ) : null,
+              ),
+              pw.SizedBox(height: 10.0),
+              pw.SizedBox(
+                child: companyAddress != ""
+                    ? pw.Row(
+                  children: [
+                    pw.Image(locationImage, height: 20.0, width: 20.0),
+                    pw.SizedBox(width: 20.0),
+                    multiText(text2: companyAddress),
+                  ],
+                ) : null,
+              ),
+            ]
+        ),);
+
+
+    widgets.add(header);
+    widgets.add(billDetails);
+    widgets.add(itemHeader);
+
+    /////// Item Detail ///////
+
+    final builder = pw.Container(
+        child: pw.ListView.builder(
+      itemCount: itemList.length,
+      itemBuilder: (context, index) {
+        return pw.Table(columnWidths: {
+          0: const pw.FixedColumnWidth(1),
+          1: const pw.FixedColumnWidth(3),
+          2: const pw.FixedColumnWidth(2),
+          3: const pw.FixedColumnWidth(2),
+          4: const pw.FixedColumnWidth(2),
+        }, children: [
+          pw.TableRow(
+            verticalAlignment: pw.TableCellVerticalAlignment.middle,
+              decoration: const pw.BoxDecoration(color:PdfColors.white),
+              children: [
+                pw.Center(
+                    child: pw.Container(
+                      margin: const pw.EdgeInsets.only(left: 40.0,top: 5.0,bottom: 5.0), // Add margin around the cell
+                      child: pw.Text("${index + 1}", style: const pw.TextStyle(color: PdfColors.black)),
+                    )),
+                pw.Center(
+                    child: pw.Container(
+                      margin: const pw.EdgeInsets.only(top: 5.0,bottom: 5.0), // Add margin around the cell
+                      child: pw.Text(itemList[index], style: const pw.TextStyle(color: PdfColors.black)),
+                    )),
+                pw.Center(
+                    child: pw.Container(
+                      margin: const pw.EdgeInsets.only(top: 5.0,bottom: 5.0), // Add margin around the cell
+                      child: pw.Text(priceList[index].toString(), style: const pw.TextStyle(color: PdfColors.black)),
+                    )),
+                pw.Center(
+                    child: pw.Container(
+                      margin: const pw.EdgeInsets.only(top: 5.0,bottom: 5.0), // Add margin around the cell
+                      child: pw.Text(quantityList[index].toString(), style: const pw.TextStyle(color: PdfColors.black)),
+                    )),
+                pw.Center(
+                    child: pw.Container(
+                      margin: const pw.EdgeInsets.only(left: 10.0,top: 5.0,bottom: 5.0), // Add margin around the cell
+                      child: pw.Text("Rs/- ${perItemTotalList[index]}", style: const pw.TextStyle(color: PdfColors.black)),
+                    )),
+                pw.SizedBox(height: 2.0),
+
+              ]),
+        ]);
+      },
+    ));
+
+    widgets.add(builder);
+    widgets.add(itemsPrice);
+    widgets.add(companyDetails);
+
+    pdf.addPage(pw.MultiPage(
+      margin: const pw.EdgeInsets.all(0.0),
+        pageFormat: PdfPageFormat.a4,
+        build: (context) => widgets));
+
+    Get.to(PreviewScreen(
+      doc: pdf,
+    ));
+  }
+
+  int generateUniqueCode() {
+    var random = Random();
+    int code = (100000 + random.nextInt(900000));
+    return code;
+  }
+
+  pw.RichText multiText({
+    // required String text1,
+    required String text2}) {
+    return pw.RichText(
+      text: pw.TextSpan(children: [
+        // pw.TextSpan(text: text1,style:pw.TextStyle(color: const PdfColor.fromInt(0xff0060FF),fontWeight: pw.FontWeight.bold, fontSize: 14.0)),
+        pw.TextSpan(text: text2,style:pw.TextStyle(color:  PdfColors.black,fontWeight: pw.FontWeight.bold, fontSize: 14.0)),
+      ]),
+    );
+  }
+}
