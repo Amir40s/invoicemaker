@@ -21,4 +21,5 @@ class ImagesPath {
   static String PHONEICONPDF = "assets/images/pdf_phone_icon.webp";
   static String LOCATIONICON = "assets/images/pdf_location_icon.webp";
   static String BLANKIMAGE = "assets/images/blank_image.webp";
+  static String PREVIEWIMAGE = "assets/images/ready_preview_image.webp";
 }

@@ -54,14 +54,23 @@ class AddNewClientBottomSheet {
                       builder: (context, provider, child) {
                     return CustomTextButton().customTextButton(
                       onPress: () {
-                        provider.addClient(
+                        if(Provider.of<ClientsListProvider>(context, listen: false).email == emailController.text.toString()) {
+                          provider.updateItem(nameController.text.toString(),
+                              emailController.text.toString(),
+                              addressController.text.toString(),
+                              mobileController.text.toString(),
+                              phoneController.text.toString(),
+                              faxController.text.toString());
+                        }
+                        else{
+                          provider.addClient(
                             nameController.text.toString(),
                             emailController.text.toString(),
                             addressController.text.toString(),
                             mobileController.text.toString(),
                             phoneController.text.toString(),
                             faxController.text.toString());
-                        Get.back();
+                        Get.back();}
                       },
                       text: "Save",
                       textColor: appColor,
@@ -106,7 +115,7 @@ class AddNewClientBottomSheet {
                       maxLength: 25,
                       width: Get.width,
                       controller: addressController) ,
-                      mobileController != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
+                      mobileController.text.toString() != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
                       fieldName: "Mobile (optional)",
@@ -115,7 +124,7 @@ class AddNewClientBottomSheet {
                       width: Get.width,
                       maxLength: 12,
                       controller: mobileController): const SizedBox(height: 0.0,width: 0.0,),
-                      phoneController != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
+                      phoneController.text.toString() != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
                           keyboardType: TextInputType.phone,
                           textInputAction: TextInputAction.next,
                           fieldName: "Phone (optional)",
@@ -124,7 +133,7 @@ class AddNewClientBottomSheet {
                           maxLength: 12,
                           width: Get.width,
                           controller: phoneController) : const SizedBox(height: 0.0,width: 0.0,),
-                      faxController  != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
+                      faxController.text.toString()  != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.go,
                       fieldName: "Fax (optional)",

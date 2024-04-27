@@ -44,6 +44,17 @@ class BillToInvoiceInfo {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                            IconButton(
+                              icon: Icon(Icons.edit_outlined,color: appColor,size: 20.0,),
+                              onPressed: () {
+                                Get.bottomSheet(backgroundColor: Colors.transparent,
+                                    AddNewClientBottomSheet().addNewClientBottomSheet(),
+                                );
+                              },
+                            ),
+                          ],),
                           HelperText().helperText(
                               text: clientListProvider.name,
                               fontSize: 12.0,

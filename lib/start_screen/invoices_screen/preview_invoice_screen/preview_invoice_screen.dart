@@ -48,11 +48,14 @@ class PreviewInvoiceScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
+                child: Image.asset(ImagesPath.PREVIEWIMAGE,height: 300.0,width: 300.0,fit: BoxFit.contain,)),
+            SizedBox(height: 30.0,),
+            Center(
               child: ShareButton().shareButton(
                   onPress: () {
                     generatePDF(context);
                   },
-                  text: "Your PDF ready to View",
+                  text: "Your Invoice ready to View",
                   buttonColor: appColor,
                   textColor: textColor,
                   fontSize: 14.0,
@@ -262,10 +265,10 @@ class PreviewInvoiceScreen extends StatelessWidget {
         ]),
         pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
           pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
-            pw.Text("Subtotal",
+            pw.Text("Subtotal :",
                 style: const pw.TextStyle(fontSize: 12.0,)),
             pw.SizedBox(width: 7.0),
-            pw.Text(":  $total",
+            pw.Text("  $total",
                 style: const pw.TextStyle(fontSize: 12.0,)),
           ]),
           pw.SizedBox(height: 10.0),
@@ -278,15 +281,15 @@ class PreviewInvoiceScreen extends StatelessWidget {
               ),
               child: pw.Center(
                 child: pw.Padding(
-                  padding: const pw.EdgeInsets.only(right: 2.0),
+                  padding: const pw.EdgeInsets.all(5.0),
                   child: pw.Row(
                       crossAxisAlignment: pw.CrossAxisAlignment.end,
                       mainAxisAlignment: pw.MainAxisAlignment.end,
                       children: [
-                        pw.Text("Total",
+                        pw.Text("Total :",
                             style: const pw.TextStyle(color: PdfColors.white,fontSize: 12.0)),
                         pw.SizedBox(width: 7.0),
-                        pw.Text(":  $total",
+                        pw.Text("  $total",
                             style: const pw.TextStyle(color: PdfColors.white,fontSize: 12.0,)),
                       ]),
                 ),

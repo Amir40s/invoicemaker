@@ -90,19 +90,22 @@ class AddItemLine {
                                           fontSize: 12,
                                           textColor: Colors.black,
                                           fontWeight: FontWeight.w600,),
-                                        Row(
-                                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            HelperText().helperText(
-                                              text:"${addItemProvider.unitPrice[index]} x ${addItemProvider.quantity[index]}",
-                                              fontSize: 12,
-                                              textColor: Colors.black,
-                                              fontWeight: FontWeight.w600,),
-                                            HelperText().helperText(
-                                              text: formatValue(double.parse(addItemProvider.perItemTotalAmount[index].toString())),
-                                              fontSize: 12,
-                                              textColor: containerTextColor,),
-                                          ],
+                                        SizedBox(
+                                          width : Get.width/1.33,
+                                          child: Row(
+                                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              HelperText().helperText(
+                                                text:"${addItemProvider.unitPrice[index]} x ${addItemProvider.quantity[index]}",
+                                                fontSize: 12,
+                                                textColor: Colors.black,
+                                                fontWeight: FontWeight.w600,),
+                                              HelperText().helperText(
+                                                text: formatValue(double.parse(addItemProvider.perItemTotalAmount[index].toString())),
+                                                fontSize: 12,
+                                                textColor: containerTextColor,),
+                                            ],
+                                          ),
                                         ),
                                         HelperText().helperText(
                                           text:addItemProvider.description[index],

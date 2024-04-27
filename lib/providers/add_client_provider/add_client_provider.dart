@@ -25,6 +25,17 @@ class ClientsListProvider extends ChangeNotifier {
     _fax = clientFax;
     notifyListeners();
   }
+
+  updateItem(String clientName, String clientEmail, String clientAddress, String clientMobile, String clientPhone, String clientFax) {
+    _name = clientName;
+    _email =  clientEmail;
+    _address  = clientAddress;
+    _mobile = clientMobile;
+    _phone = clientPhone;
+    _fax = clientFax;
+    notifyListeners();
+  }
+
   void clearAllData() {
     _name =  null;
     _email = null;
