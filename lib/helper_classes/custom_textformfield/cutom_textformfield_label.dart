@@ -14,12 +14,10 @@ class LabelTextFormField{
         label: HelperText().helperText(text: labelText, textColor: Colors.grey.shade500, fontSize: 14),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade500),
-
           borderRadius: BorderRadius.circular(10),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade500),
-
           borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(

@@ -47,7 +47,7 @@ class AddItemLine {
                     : ItemListController();
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,7 +66,6 @@ class AddItemLine {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                       IconButton(
@@ -85,41 +84,30 @@ class AddItemLine {
                                       ),
                                     ],),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:CrossAxisAlignment.start,
                                       children: [
-                                        HelperText().helperText(
-                                          text: addItemProvider.items[index],
+                                        HelperText().helperText(text: addItemProvider.items[index],
                                           fontSize: 12,
                                           textColor: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                          fontWeight: FontWeight.w600,),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                           children: [
                                             HelperText().helperText(
-                                              text:
-                                                  "${addItemProvider.unitPrice[index]} x ${addItemProvider.quantity[index]}",
+                                              text:"${addItemProvider.unitPrice[index]} x ${addItemProvider.quantity[index]}",
                                               fontSize: 12,
                                               textColor: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                              fontWeight: FontWeight.w600,),
                                             HelperText().helperText(
-                                              text: formatValue(double.parse(
-                                                  addItemProvider.perItemTotalAmount[index].toString())),
+                                              text: formatValue(double.parse(addItemProvider.perItemTotalAmount[index].toString())),
                                               fontSize: 12,
-                                              textColor: containerTextColor,
-                                            ),
+                                              textColor: containerTextColor,),
                                           ],
                                         ),
                                         HelperText().helperText(
-                                          text:
-                                              addItemProvider.description[index],
+                                          text:addItemProvider.description[index],
                                           fontSize: 13,
-                                          textColor: containerTextColor,
-                                        ),
+                                          textColor: containerTextColor,),
                                       ],
                                     ),
                                   ],
@@ -150,18 +138,10 @@ class AddItemLine {
                         ],
                       ),
                     ),
-                    Divider(
-                      thickness: .5,
-                      color: appColor,
-                    ),
+                    Divider(thickness: .5,color: appColor),
                     TotalDetails().totalDetails(),
-                    Divider(
-                      thickness: .5,
-                      color: appColor,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
+                    Divider(thickness: .5,color: appColor,),
+                    const SizedBox(height: 20.0,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Column(
@@ -213,17 +193,3 @@ class AddItemLine {
     return value.toStringAsFixed(2);
   }
 }
-
-// final addItemProvider = Provider.of<AddItemProvider>(context, listen: false);
-// addItemProvider.addItem(
-//   formData.itemController.text.toString(),
-//   formData.descriptionController.text.toString(),
-//   formData.unitPriceController.text.toString(),
-//   formData.unitController.text.toString(),
-//   formData.quantityController.text.toString(),
-//   formData.categoryController.text.toString(),
-//   (
-//       double.parse(formData.unitPriceController.text.toString()) *
-//           double.parse(formData.quantityController.text.toString())
-//   ).toString(),
-// );

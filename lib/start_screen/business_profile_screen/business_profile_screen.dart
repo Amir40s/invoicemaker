@@ -318,7 +318,6 @@ class BusinessProfileScreen extends StatelessWidget {
                             maxLength: 37,
                             keyboardType: TextInputType.streetAddress,
                             controller: _businessAddressController,
-
                             labelText: "Business Address",
                             hintText: "Business Address",),
                         const SizedBox(
