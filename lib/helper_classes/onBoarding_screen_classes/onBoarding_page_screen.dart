@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:invoicemaker/button_classes/share_button/share_button.dart';
 import 'package:invoicemaker/constants/color_class.dart';
 import 'package:invoicemaker/start_screen/invoices_screen/edit_invoice/edit_invoice.dart';
+import '../../start_screen/botttomBar_screen/bottomBar_screen.dart';
 import '../helper_text/helper_text_class.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -45,7 +46,7 @@ class OnBoardingPage extends StatelessWidget {
           SizedBox(
             child: isButton
                 ? ShareButton().shareButton(
-                    onPress: () {Get.offAll(() => EditInvoice(businessname: "", businessemail: ""));},
+                    onPress: () {Get.offAll(() => const BottomNavBarScreen());},
                     text: "Get Started ",
                     buttonColor: appColor,
                     textColor: textColor,

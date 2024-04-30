@@ -69,8 +69,7 @@ class BusinessProfileScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 HelperText().helperText(
-                                    text: getValueProvider
-                                                .businessname?.isNotEmpty == true
+                                    text: getValueProvider.businessname?.isNotEmpty == true
                                         ? getValueProvider.businessname! : "Company Name",
                                     textColor: Colors.black,
                                     fontSize: 16.0,
@@ -82,11 +81,10 @@ class BusinessProfileScreen extends StatelessWidget {
                                       builder: (context, imageProvider, child) {
                                         return GestureDetector(
                                           onTap: () {
-                                          imageProvider.pickImage();
+                                          imageProvider.pickImage(context);
                                           },
                                           child: imageProvider.imagepath == imageProvider.blankImage
-                                              ? Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                              ? Padding(padding: const EdgeInsets.symmetric(vertical: 10.0),
                                                 child: LogoContainer().logoContainer(),
                                               )
                                               : CircleAvatar(
@@ -219,7 +217,7 @@ class BusinessProfileScreen extends StatelessWidget {
                             controller: _businessContactController,
                             keyboardType: TextInputType.phone,
                             labelText: "Phone Number ",
-                            hintText: "+92-",),
+                            hintText: "Phone Number ",),
                         const SizedBox(
                           height: 2.0,
                         ),
