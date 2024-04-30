@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:invoicemaker/start_screen/invoices_screen/edit_invoice/edit_invoice.dart';
 import '../../button_classes/text_button_class/text_button.dart';
 import '../../start_screen/botttomBar_screen/bottomBar_screen.dart';
 
