@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:signature/signature.dart';
-
 import '../../button_classes/share_button/share_button.dart';
 import '../../constants/color_class.dart';
 

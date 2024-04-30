@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../../constants/color_class.dart';
 import '../../providers/add_client_provider/add_client_provider.dart';
-import '../../providers/add_item_provider/add_item_provider.dart';
 import '../dotted_border/bill_and_items_dotted_boarder_box/bill_and_items_dotted_boarder_box.dart';
 import '../helper_text/helper_text_class.dart';
 import 'add_new_clients.dart';
 import 'package:intl/intl.dart';
 
 class BillToInvoiceInfo {
+
   Padding billToInvoiceInfo() {
     DateTime currentDate = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy').format(currentDate);
@@ -31,6 +31,7 @@ class BillToInvoiceInfo {
             onTap: () {
               Get.bottomSheet(
                   backgroundColor: Colors.transparent,
+                  isDismissible: false,
                   AddNewClientBottomSheet().addNewClientBottomSheet());
             },
             child: clientListProvider.name == null
@@ -44,17 +45,6 @@ class BillToInvoiceInfo {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                            IconButton(
-                              icon: Icon(Icons.edit_outlined,color: appColor,size: 20.0,),
-                              onPressed: () {
-                                Get.bottomSheet(backgroundColor: Colors.transparent,
-                                    AddNewClientBottomSheet().addNewClientBottomSheet(),
-                                );
-                              },
-                            ),
-                          ],),
                           HelperText().helperText(
                               text: clientListProvider.name,
                               fontSize: 12.0,
@@ -88,6 +78,7 @@ class BillToInvoiceInfo {
                               textColor: containerTextColor,),
                         ],
                       ),
+                      const SizedBox(width: 0.0,height: 0.0,),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -112,9 +103,3 @@ class BillToInvoiceInfo {
     );
   }
 }
-
-// HelperText().helperText(
-//   text: "Due date: 28/03/2024",
-//   fontSize: 12.0,
-//   textColor: containerTextColor,
-// ),

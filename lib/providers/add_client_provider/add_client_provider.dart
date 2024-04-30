@@ -26,7 +26,7 @@ class ClientsListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  updateItem(String clientName, String clientEmail, String clientAddress, String clientMobile, String clientPhone, String clientFax) {
+  updateItem(clientName, clientEmail, clientAddress, clientMobile, clientPhone, clientFax) {
     _name = clientName;
     _email =  clientEmail;
     _address  = clientAddress;

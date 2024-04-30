@@ -4,13 +4,13 @@ import '../../helper_classes/controller_class/controller_class.dart';
 class AddItemProvider with ChangeNotifier {
   List<ItemListController> itemListController = [];
 
-  List _items = [];
-  List _description = [];
-  List _unitPrice = [];
-  List _unit = [];
-  List _quantity = [];
-  List _category = [];
-  List _perItemTotalAmount = [];
+  final List _items = [];
+  final List _description = [];
+  final List _unitPrice = [];
+  final List _unit = [];
+  final List _quantity = [];
+  final List _category = [];
+  final List _perItemTotalAmount = [];
   double _subTotal = 0;
 
   get items => _items;
@@ -33,7 +33,7 @@ class AddItemProvider with ChangeNotifier {
     _perItemTotalAmount.add(perItemTotalAmount);
     notifyListeners();
   }
-   updateItem(int index, String item, String description, String unitPrice, String unit, String quantity, String category, String perItemTotalAmount) {
+   updateItem(int index, item, description, unitPrice, unit, quantity, category, perItemTotalAmount) {
     _items[index] = item;
     _description[index] = description;
     _unitPrice[index] = unitPrice;

@@ -44,7 +44,7 @@ class AddNewItem extends StatelessWidget {
               child: Row(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {Get.back();},
                       icon: Icon(
                         Icons.arrow_back_outlined,
                         color: appColor,

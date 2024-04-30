@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import 'package:permission_handler/permission_handler.dart';
+
 class MyImageProvider with ChangeNotifier {
   File? _image;
   String _imagepath = "assets/images/blank_image.webp";
@@ -11,18 +13,18 @@ class MyImageProvider with ChangeNotifier {
   String blankImage = "assets/images/blank_image.webp";
 
   Future<void> pickImage() async {
+    var status = await Permission.storage.status;
     try {
-      final picker = ImagePicker();
-      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-      if (pickedImage != null) {
-        updatePath(pickedImage.path);
-      } else {
-        print('No image selected.');
+      if(status.isGranted){
+        final picker = ImagePicker();
+        final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+        if (pickedImage != null) {
+          updatePath(pickedImage.path);
+        }
+      }else{
+        
       }
-    } catch (e) {
-      print('Error picking image: $e');
-    }
+    } catch (e) {}
     notifyListeners();
   }
   void updatePath(String newPath) async {

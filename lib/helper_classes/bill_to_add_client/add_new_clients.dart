@@ -33,7 +33,7 @@ class AddNewClientBottomSheet {
               child: Row(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {Get.back();},
                       icon: Icon(
                         Icons.arrow_back_outlined,
                         color: appColor,
@@ -54,15 +54,10 @@ class AddNewClientBottomSheet {
                       builder: (context, provider, child) {
                     return CustomTextButton().customTextButton(
                       onPress: () {
-                        if(Provider.of<ClientsListProvider>(context, listen: false).email == emailController.text.toString()) {
-                          provider.updateItem(nameController.text.toString(),
-                              emailController.text.toString(),
-                              addressController.text.toString(),
-                              mobileController.text.toString(),
-                              phoneController.text.toString(),
-                              faxController.text.toString());
-                        }
-                        else{
+                        // if(Provider.of<ClientsListProvider>(context, listen: false).email == emailController.text.toString()) {
+
+                        // }
+                        // else{
                           provider.addClient(
                             nameController.text.toString(),
                             emailController.text.toString(),
@@ -71,7 +66,8 @@ class AddNewClientBottomSheet {
                             phoneController.text.toString(),
                             faxController.text.toString());
                         Get.back();}
-                      },
+                      // },
+                      ,
                       text: "Save",
                       textColor: appColor,
                       fontSize: 14.0,
@@ -94,7 +90,7 @@ class AddNewClientBottomSheet {
                       fieldName: "Name",
                       labelName: "Name",
                       height: 80.0,
-                      maxLength: 25,
+                      maxLength: 20,
                       width: Get.width,
                       controller: nameController),
                   SimpleCustomTextFormField().simpleCustomTextFormField(
@@ -103,7 +99,7 @@ class AddNewClientBottomSheet {
                       fieldName: "Email",
                       labelName: "Email",
                       height: 80.0,
-                      maxLength: 25,
+                      maxLength: 28,
                       width: Get.width,
                       controller: emailController),
                   SimpleCustomTextFormField().simpleCustomTextFormField(
@@ -112,7 +108,7 @@ class AddNewClientBottomSheet {
                       fieldName: "Address",
                       labelName: "Address",
                       height: 80.0,
-                      maxLength: 25,
+                      maxLength: 28,
                       width: Get.width,
                       controller: addressController) ,
                       mobileController.text.toString() != null ? SimpleCustomTextFormField().simpleCustomTextFormField(
@@ -139,7 +135,7 @@ class AddNewClientBottomSheet {
                       fieldName: "Fax (optional)",
                       labelName: "Fax (optional)",
                       height: 80.0,
-                      maxLength: 25,
+                      maxLength: 28,
                       width: Get.width,
                       controller: faxController) : const SizedBox(height: 0.0,width: 0.0,),
                 ],

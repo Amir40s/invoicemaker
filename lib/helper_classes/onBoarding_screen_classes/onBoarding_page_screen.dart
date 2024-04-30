@@ -24,14 +24,8 @@ class OnBoardingPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            image,
-            width: double.infinity,
-            height: 240.0,
-          ),
-          const SizedBox(
-            height: 50.0,
-          ),
+          Image.asset(image,width: double.infinity,height: 240.0,),
+          const SizedBox(height: 50.0,),
           Center(
             child: HelperText().helperText(
               text: title,
@@ -40,9 +34,7 @@ class OnBoardingPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height: 15.0,
-          ),
+          const SizedBox(height: 15.0,),
           HelperText().helperText(
             text: subtitle,
             textColor: Colors.black,

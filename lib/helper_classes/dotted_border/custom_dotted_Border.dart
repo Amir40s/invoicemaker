@@ -52,12 +52,7 @@ class DottedBorderContainer extends StatelessWidget {
                       ),
                       child: IconButton(
                         onPressed: signatureProvider.openSignaturePad,
-                        icon:  Icon(
-                          CupertinoIcons.pen,
-                          color: appColor,
-                          size: 33,
-                        ),
-                      ),
+                        icon:  Icon(CupertinoIcons.pen,color: appColor,size: 33,),),
                     ),
                     const SizedBox(height: 10),
                     const Text("Create your Signature here"),

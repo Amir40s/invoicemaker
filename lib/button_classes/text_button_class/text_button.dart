@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 class CustomTextButton{
-  Widget customTextButton({required VoidCallback onPress,required String text,required var textColor,var fontWeight,required double fontSize,}){
+  Widget customTextButton({required VoidCallback onPress,required String text,
+    required var textColor,    var fontWeight,required double fontSize,}){
     return InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,

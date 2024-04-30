@@ -32,7 +32,8 @@ class EditInvoice extends StatelessWidget {
     final getValueProvider = Provider.of<GetValueProvider>(context,listen: false);
     return Scaffold(
       backgroundColor: textColor,
-      appBar: CustomAppBar().customAppBar(text: "Create invoice",icon: const Icon(Icons.arrow_back_outlined,),titleColor: textColor, backgroundColor: appColor,actionIcon2: Icons.delete_outline_outlined,actionIcon2Color: textColor,leadingIconColor: textColor, onPress1: () {Get.back();}, onPress2: () {}, onPress3: () {}, useLeadingIcon: false, useActionIcon1: false,useActionIcon2: false),
+      appBar: CustomAppBar().customAppBar(text: "Create invoice",titleColor: textColor,
+          backgroundColor: appColor, onPress1: () {}, useLeadingIcon: false),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,8 @@ class EditInvoice extends StatelessWidget {
                     ],
                   ),
                       Row(children: [
-                        CustomTextButton().customTextButton(onPress: (){Get.to(() => BusinessProfileScreen());}, text: "Set Profile", textColor: appColor, fontSize: 14.0,fontWeight: FontWeight.bold),],
+                        CustomTextButton().customTextButton(onPress: (){Get.to(() => BusinessProfileScreen());},
+                            text: "Set Profile", textColor: appColor, fontSize: 14.0,fontWeight: FontWeight.bold),],
                       ),],),),
             Divider(thickness: .5,color: appColor,),
             BillToInvoiceInfo().billToInvoiceInfo(),

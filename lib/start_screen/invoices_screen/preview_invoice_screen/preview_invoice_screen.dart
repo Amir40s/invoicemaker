@@ -18,11 +18,14 @@ class PreviewInvoiceScreen extends StatelessWidget {
   final Uint8List? signatureBytes;
   PreviewInvoiceScreen({
     super.key,
-    this.clientName,this.clientEmail,this.clientAddress,this.clientMobile,this.companyName,this.companyAddress,this.companyEmail,this.companyContact,
-    required this.itemList,required this.priceList,required this.quantityList,required this.perItemTotalList,this.signatureBytes,this.total,
+    this.clientName,this.clientEmail,this.clientAddress,this.clientMobile,this.companyName,
+    this.companyAddress,this.companyEmail,this.companyContact,
+    required this.itemList,required this.priceList,required this.quantityList,
+    required this.perItemTotalList,this.signatureBytes,this.total,
   });
   final List itemList, priceList, quantityList, perItemTotalList;
-  dynamic clientName,clientEmail,clientAddress,clientMobile,companyName,companyAddress,companyEmail,total,companyContact;
+  dynamic clientName,clientEmail,clientAddress,clientMobile,companyName,companyAddress,
+      companyEmail,total,companyContact;
 
   @override
   Widget build(BuildContext context) {
@@ -34,40 +37,26 @@ class PreviewInvoiceScreen extends StatelessWidget {
           text: "Invoice Preview",
           leadingIconColor: textColor,
           icon: const Icon(Icons.arrow_back_outlined,),
-          onPress1: () {
-            Get.back();
-          },
-          onPress2: () {},
-          onPress3: () {},
-          useLeadingIcon: true,
-          useActionIcon1: false,
-          useActionIcon2: false),
+          onPress1: () {Get.back();},
+          useLeadingIcon: true,),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-                child: Image.asset(ImagesPath.PREVIEWIMAGE,height: 300.0,width: 300.0,fit: BoxFit.contain,)),
-            SizedBox(height: 30.0,),
+                child: Image.asset(ImagesPath.PREVIEWIMAGE,
+                  height: 300.0,width: 300.0,fit: BoxFit.contain,)),
+            const SizedBox(height: 30.0,),
             Center(
               child: ShareButton().shareButton(
-                  onPress: () {
-                    generatePDF(context);
-                  },
+                  onPress: () {generatePDF(context);},
                   text: "Your Invoice ready to View",
-                  buttonColor: appColor,
-                  textColor: textColor,
-                  fontSize: 14.0,
+                  buttonColor: appColor,textColor: textColor,fontSize: 14.0,
                   borderRadius: BorderRadius.circular(15.0),
                   height: 50.0,
                   fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+            ),],),),);}
 
   Future<void> generatePDF(BuildContext context) async {
     final pdf = pw.Document();
@@ -151,14 +140,10 @@ class PreviewInvoiceScreen extends StatelessWidget {
                   fontSize: 12.0,
                 )),
             pw.Text(clientName,
-                style: pw.TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: pw.FontWeight.bold,
+                style: pw.TextStyle(fontSize: 12.0,fontWeight: pw.FontWeight.bold,
                     color: PdfColors.black)),
             pw.Text(clientEmail,
-                style: const pw.TextStyle(
-                  fontSize: 12.0,
-                )),
+                style: const pw.TextStyle(fontSize: 12.0,)),
             pw.SizedBox(height: 20.0),
             pw.Column(
                 mainAxisAlignment: pw.MainAxisAlignment.start,
@@ -412,7 +397,8 @@ class PreviewInvoiceScreen extends StatelessWidget {
     return pw.RichText(
       text: pw.TextSpan(children: [
         pw.TextSpan(text: text2,
-            style: pw.TextStyle(color: PdfColors.black,fontWeight: pw.FontWeight.bold,fontSize: 14.0)),]),
+            style: pw.TextStyle(color: PdfColors.black,
+                fontWeight: pw.FontWeight.bold,fontSize: 14.0)),]),
     );
   }
 }

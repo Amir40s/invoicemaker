@@ -129,6 +129,7 @@ class AddItemLine {
                             onTap: () {
                               Get.bottomSheet(
                                 backgroundColor: Colors.transparent,
+                                isDismissible: false,
                                 AddNewItem(itemListController: formData,),
                               );
                             },

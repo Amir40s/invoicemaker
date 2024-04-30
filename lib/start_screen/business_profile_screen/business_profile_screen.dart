@@ -1,10 +1,6 @@
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:invoicemaker/start_screen/signIn_screen/signIn_screen.dart';
 import 'package:provider/provider.dart';
 import '../../button_classes/share_button/share_button.dart';
 import '../../constants/color_class.dart';
@@ -41,14 +37,9 @@ class BusinessProfileScreen extends StatelessWidget {
         leadingIconColor: textColor,
         text: "Business profile",
         titleColor: textColor,
-        actionIcon2: Icons.logout_outlined,
-        actionIcon2Color: textColor,
         backgroundColor: appColor,
         onPress1: () {Get.back();},
-        onPress2: () {},
-        onPress3: () {FirebaseAuth.instance.signOut();
-          Get.offAll(SignInScreen());}, useLeadingIcon: true, useActionIcon1: false, useActionIcon2: false,
-      ),
+        useLeadingIcon: true,),
       body: Column(
         children: [
           Consumer<GetValueProvider>(
@@ -79,10 +70,8 @@ class BusinessProfileScreen extends StatelessWidget {
                               children: [
                                 HelperText().helperText(
                                     text: getValueProvider
-                                                .businessname?.isNotEmpty ==
-                                            true
-                                        ? getValueProvider.businessname!
-                                        : "Company Name",
+                                                .businessname?.isNotEmpty == true
+                                        ? getValueProvider.businessname! : "Company Name",
                                     textColor: Colors.black,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold),
@@ -93,7 +82,7 @@ class BusinessProfileScreen extends StatelessWidget {
                                       builder: (context, imageProvider, child) {
                                         return GestureDetector(
                                           onTap: () {
-                                            imageProvider.pickImage();
+                                          imageProvider.pickImage();
                                           },
                                           child: imageProvider.imagepath == imageProvider.blankImage
                                               ? Padding(
@@ -114,21 +103,15 @@ class BusinessProfileScreen extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 const Column(
                                   children: [
-                                    SizedBox(
-                                      height: 60.0,
-                                      child: VerticalDivider(
-                                        thickness: 2.0,
-                                        color: Colors.black,
-                                        width: 3.0,
-                                      ),
-                                    ),
+                                    SizedBox(height: 60.0,
+                                      child: VerticalDivider(thickness: 2.0,
+                                        color: Colors.black,width: 3.0,),),
                                   ],
                                 ),
                                 Padding(
@@ -139,11 +122,8 @@ class BusinessProfileScreen extends StatelessWidget {
                                     children: [
                                       CardItemDetails().cardItemDetails(
                                           icon: Icons.phone,
-                                          text: getValueProvider.contactnumber
-                                                      ?.isNotEmpty ==
-                                                  true
-                                              ? getValueProvider.contactnumber!
-                                              : "Contact Number",
+                                          text: getValueProvider.contactnumber ?.isNotEmpty == true
+                                              ? getValueProvider.contactnumber! : "Contact Number",
                                           iconSize: 18.0,
                                           fontSize: 12.0,
                                           iconColor: fieldTextColor),
@@ -152,11 +132,8 @@ class BusinessProfileScreen extends StatelessWidget {
                                       ),
                                       CardItemDetails().cardItemDetails(
                                           icon: Icons.email_outlined,
-                                          text: getValueProvider.businessemail
-                                                      ?.isNotEmpty ==
-                                                  true
-                                              ? getValueProvider.businessemail!
-                                              : "Email Address",
+                                          text: getValueProvider.businessemail ?.isNotEmpty == true
+                                              ? getValueProvider.businessemail! : "Email Address",
                                           iconSize: 18.0,
                                           fontSize: 12.0,
                                           iconColor: fieldTextColor),
@@ -165,44 +142,16 @@ class BusinessProfileScreen extends StatelessWidget {
                                       ),
                                       CardItemDetails().cardItemDetails(
                                           icon: Icons.business_center_outlined,
-                                          text: getValueProvider.businessaddress
-                                                      ?.isNotEmpty ==
-                                                  true
-                                              ? getValueProvider.businessaddress!
-                                              : "Business Address",
+                                          text: getValueProvider.businessaddress ?.isNotEmpty == true
+                                              ? getValueProvider.businessaddress! : "Business Address",
                                           iconSize: 18.0,
                                           fontSize: 12.0,
                                           iconColor: fieldTextColor),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                // Positioned(
-                //     bottom: 7.0,
-                //     left: Get.width * .32,
-                //     right: Get.width * .32,
-                //     child: ShareButton().shareButton(
-                //         icon: Icons.share_sharp,
-                //         height: 45.0,
-                //         borderRadius: BorderRadius.circular(30.0),
-                //         isIcon: true,
-                //         text: "Share Card",
-                //         buttonColor: appColor,
-                //         iconColor: textColor,
-                //         textColor: textColor,
-                //         fontSize: 12.0,
-                //         fontWeight: FontWeight.bold,
-                //         onPress: () {sharePressed();})),
-              ]),
-            );
-          }),
+                                    ],),
+                                ),],),
+                          )],),),
+                  ),),]),
+            );}),
           Expanded(
               child: SingleChildScrollView(
             child: Column(
@@ -214,21 +163,15 @@ class BusinessProfileScreen extends StatelessWidget {
                     children: [
                       CardItemDetails().cardItemDetails(
                           icon: Icons.lightbulb_outlined,
-                          text:
-                              "67% businessmen saw their business increase after\nsharing their visiting card",
+                          text:"67% businessmen saw their business increase after\nsharing their visiting card",
                           iconSize: 27.0,
                           fontSize: 10.5,
                           iconColor: Colors.amber),
                     ],
                   ),
                 ),
-                Divider(
-                  thickness: .1,
-                  color: fieldTextColor,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 12.0, top: 7.0, bottom: 7.0),
+                Divider(thickness: .1,color: fieldTextColor,),
+                Padding(padding:const EdgeInsets.only(left: 12.0, top: 7.0, bottom: 7.0),
                   child: Row(
                     children: [
                       HelperText().helperText(
@@ -239,22 +182,15 @@ class BusinessProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(
-                  thickness: .1,
-                  color: fieldTextColor,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 7.0),
-                  child: Consumer<GetValueProvider>(
-                      builder: (context, getValueProvider, child) {
+                Divider(thickness: .1,color: fieldTextColor,),
+                Padding(padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 7.0),
+                  child: Consumer<GetValueProvider>(builder: (context, getValueProvider, child) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         LabelTextFormField().labelTextFormField(
                           onChanged: (name) {
-                            getValueProvider.updateText(
-                              name,
+                            getValueProvider.updateText( name,
                               getValueProvider.contactnumber,
                               getValueProvider.businessemail,
                               getValueProvider.businessaddress,
@@ -281,7 +217,6 @@ class BusinessProfileScreen extends StatelessWidget {
                             textInputAction: TextInputAction.next,
                             maxLength: 14,
                             controller: _businessContactController,
-
                             keyboardType: TextInputType.phone,
                             labelText: "Phone Number ",
                             hintText: "+92-",),
@@ -329,22 +264,15 @@ class BusinessProfileScreen extends StatelessWidget {
                           fontSize: 14.0,
                           fontWeight: FontWeight.w600,
                         ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0,),
                         DottedBorderContainer(),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
+                        const SizedBox(height: 20.0,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Consumer<SignatureProvider>(
-                                builder: (context, signatureProvider, child) {
+                            Consumer<SignatureProvider>(builder: (context, signatureProvider, child) {
                               return ShareButton().shareButton(
-                                onPress: () {
-                                  signatureProvider.clearSignature();
-                                },
+                                onPress: () { signatureProvider.clearSignature(); },
                                 text: "Remove",
                                 buttonColor: bgColor,
                                 textColor: appColor,
@@ -357,18 +285,10 @@ class BusinessProfileScreen extends StatelessWidget {
                             }),
                           ],
                         ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                      ],
-                    );
-                  }),
-                ),
-              ],
-            ),
-          ))
-        ],
-      ),
+                        const SizedBox(height: 20.0,),],);
+                  }),),
+              ],),))
+        ],),
       bottomNavigationBar: Row(
         children: [
           ShareButton().shareButton(
@@ -390,12 +310,8 @@ class BusinessProfileScreen extends StatelessWidget {
           ShareButton().shareButton(
             onPress: () {
               Get.to(() => EditInvoice(
-                  businessname: Provider.of<GetValueProvider>(context)
-                      .businessname
-                      .toString(),
-                  businessemail: Provider.of<GetValueProvider>(context)
-                      .businessemail
-                      .toString()));
+                  businessname: Provider.of<GetValueProvider>(context, listen: false).businessname.toString(),
+                  businessemail: Provider.of<GetValueProvider>(context, listen: false).businessemail.toString()));
             },
             text: "Save",
             buttonColor: appColor,
@@ -404,10 +320,7 @@ class BusinessProfileScreen extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width * 0.5,
             height: 45.0,
             fontWeight: FontWeight.w500,
-          ),
-        ],
-      ),
-    );
+          ),],
+      ),);
   }
 }
-

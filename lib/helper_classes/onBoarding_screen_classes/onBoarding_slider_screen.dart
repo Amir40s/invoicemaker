@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../constants/color_class.dart';
 import 'onBoarding_controller.dart';
 
 class OnBoardingSlider extends StatelessWidget {
-  const OnBoardingSlider({Key? key});
+  const OnBoardingSlider({super.key,});
 
   @override
   Widget build(BuildContext context) {
