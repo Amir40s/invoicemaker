@@ -7,7 +7,7 @@ import '../../start_screen/botttomBar_screen/bottomBar_screen.dart';
 import '../helper_text/helper_text_class.dart';
 
 class OnBoardingPage extends StatelessWidget {
-  OnBoardingPage({
+OnBoardingPage({
     super.key,
     required this.image,
     required this.title,

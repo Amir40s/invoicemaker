@@ -4,7 +4,7 @@ import 'package:invoicemaker/button_classes/text_button_class/text_button.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/color_class.dart';
 import '../../../helper_classes/add_new_items/add_item_line.dart';
-import '../../../helper_classes/bill_to_add_client/bill_to_invoce_info.dart';
+import '../../../helper_classes/bill_to_add_client/bill_to_invoice_info.dart';
 import '../../../helper_classes/custom_appBar_container/custom_appBar.dart';
 import '../../../helper_classes/helper_text/helper_text_class.dart';
 import '../../../providers/get_value_provider/get_value_provider.dart';

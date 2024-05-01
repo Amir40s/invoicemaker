@@ -13,7 +13,7 @@ import '../../helper_classes/logo_container/logo_container.dart';
 import '../../providers/get_value_provider/get_value_provider.dart';
 import '../../providers/logo_image_provider/logo_image_provider.dart';
 import '../../providers/signature_provider/signature_provider.dart';
-import '../invoices_screen/edit_invoice/edit_invoice.dart';
+import '../botttomBar_screen/bottomBar_screen.dart';
 
 class BusinessProfileScreen extends StatelessWidget {
   BusinessProfileScreen({super.key});
@@ -307,9 +307,7 @@ class BusinessProfileScreen extends StatelessWidget {
           ),
           ShareButton().shareButton(
             onPress: () {
-              Get.to(() => EditInvoice(
-                  businessname: Provider.of<GetValueProvider>(context, listen: false).businessname.toString(),
-                  businessemail: Provider.of<GetValueProvider>(context, listen: false).businessemail.toString()));
+              Get.offAll(() => const BottomNavBarScreen());
             },
             text: "Save",
             buttonColor: appColor,
