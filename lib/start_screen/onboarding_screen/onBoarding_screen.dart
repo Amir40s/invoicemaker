@@ -38,7 +38,8 @@ class OnBoardingScreenOne extends StatelessWidget {
                   image: ImagesPath.ONBOARDINGIMAGETHREE,
                   title: 'Complete Invoicing \nSolution',
                   subtitle:
-                  'Send your invoices to your Clients, instantly track \nyour Payments or check your client detail history.', isButton: true,
+                  'Send your invoices to your Clients, instantly track \nyour Payments or check your client detail history.',
+                  isButton: true,
                 ),
               ],
             ),
@@ -46,7 +47,6 @@ class OnBoardingScreenOne extends StatelessWidget {
             const Align(
                 alignment: Alignment.bottomCenter,
                 child: OnBoardingSlider()),
-
           ],
         ),
       ),

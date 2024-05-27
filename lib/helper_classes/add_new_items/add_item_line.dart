@@ -47,7 +47,6 @@ class AddItemLine {
                     : ItemListController();
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  // mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

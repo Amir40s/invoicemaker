@@ -7,7 +7,7 @@ class OnBoardingController extends GetxController {
   Rx<int> currentPageIndex = 0.obs;
   final int totalPages;
 
-  OnBoardingController(this.totalPages); // Constructor accepting totalPages
+  OnBoardingController(this.totalPages);
 
   void updatePageIndicator(int index) => currentPageIndex.value = index;
 
@@ -24,14 +24,14 @@ class OnBoardingController extends GetxController {
       curve: Curves.ease,
     );
   }
-
-  void autoScroll() {
-    final int currentPage = pageController.page!.toInt();
-    final int nextPage = (currentPage + 1) % totalPages;
-    pageController.animateToPage(
-      nextPage,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
 }
+  // void autoScroll() {
+  //   final int currentPage = pageController.page!.toInt();
+  //   final int nextPage = (currentPage + 1) % totalPages;
+  //   pageController.animateToPage(
+  //     nextPage,
+  //     duration: const Duration(milliseconds: 500),
+  //     curve: Curves.ease,
+  //   );
+  // }
+// }
